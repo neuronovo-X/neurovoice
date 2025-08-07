@@ -24,7 +24,7 @@ EDGE_LIMIT = 3000
 PREVIEW_LEN = 300
 VOICE_DEFAULT = "en-US-JennyNeural"
 
-MAX_EDGE_TTS_CHARS = 99999  # рабочий лимит с запасом
+MAX_EDGE_TTS_CHARS = 999999  # рабочий лимит с запасом
 
 BEST_FEMALE = ['en-US-JennyNeural', 'en-US-AriaNeural', 'en-GB-LibbyNeural']
 BEST_MALE = ['en-US-GuyNeural', 'en-GB-RyanNeural']
@@ -104,8 +104,8 @@ async def tts_to_mp3(text, voice, rate, volume, out_path):
     await communicate.save(out_path)
 
 # --- UI ---
-st.set_page_config(page_title="Edge TTS Озвучка", layout="centered")
-st.title("Генерация английской озвучки через Microsoft Edge TTS")
+st.set_page_config(page_title="ИИ-Голос", layout="centered")
+st.title("Генерация английской и русской озвучки через Microsoft Edge TTS")
 
 st.markdown("""
 **Введите текст для озвучки:**
@@ -206,4 +206,19 @@ if generate_clicked and text.strip():
     finally:
         for fname in temp_mp3_files:
             if os.path.exists(fname):
-                os.remove(fname) 
+                os.remove(fname)
+st.markdown("---", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="text-align: center; padding: 20px; background: #1e1e1e; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-family: 'Segoe UI', sans-serif;">
+    <div style="font-size: 24px; color: white; font-weight: bold; margin-bottom: 6px;">
+         ИИ-Голос
+    </div>
+    <div style="font-size: 15px; color: #999; margin-bottom: 12px;">
+        Нейроново 2025
+    </div>
+    <a href="https://github.com/neuronovo-X/neurovoice" target="_blank" style="color: #facc15; font-weight: bold; text-decoration: none; font-size: 16px;">
+        🌟 GitHub 🌟 
+    </a>
+</div>
+""", unsafe_allow_html=True)

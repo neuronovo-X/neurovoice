@@ -1,7 +1,8 @@
 @echo off
+chcp 65001 >nul
 REM Скрипт для запуска Streamlit-приложения ИИ-Голос
 
-REM Проверка наличия Python
+REM --- Проверка наличия Python ---
 python --version >nul 2>&1
 if errorlevel 1 (
     echo Python не найден! Пожалуйста, установите Python 3.8+ и добавьте в PATH.
@@ -9,7 +10,7 @@ if errorlevel 1 (
     exit /b
 )
 
-REM Проверка наличия pip
+REM --- Проверка наличия pip ---
 pip --version >nul 2>&1
 if errorlevel 1 (
     echo pip не найден! Пожалуйста, установите pip и добавьте в PATH.
@@ -17,9 +18,20 @@ if errorlevel 1 (
     exit /b
 )
 
-REM Установка зависимостей
-pip install -r requirements.txt
+REM --- Проверка нужных модулей ---
+set NEED_INSTALL=0
 
-REM Запуск приложения
+python -c "import streamlit" >nul 2>&1 || set NEED_INSTALL=1
+python -c "import edge_tts" >nul 2>&1 || set NEED_INSTALL=1
+python -c "import pydub" >nul 2>&1 || set NEED_INSTALL=1
+
+if %NEED_INSTALL%==1 (
+    echo Устанавливаются отсутствующие зависимости...
+    pip install -r requirements.txt
+) else (
+    echo Зависимости уже установлены.
+)
+
+REM --- Запуск приложения ---
 streamlit run app.py
 pause
