@@ -104,7 +104,7 @@ async def tts_to_mp3(text, voice, rate, volume, out_path):
     await communicate.save(out_path)
 
 # --- UI ---
-st.set_page_config(page_title="ИИ-Голос", layout="centered")
+st.set_page_config(page_title="Нейро-Голос", layout="centered")
 st.title("Генерация английской и русской озвучки через Microsoft Edge TTS")
 
 st.markdown("""
@@ -167,7 +167,16 @@ if preview_clicked and text.strip():
         loop.run_until_complete(tts_to_mp3(preview_text, voice, rate, volume, mp3_path))
         audio = AudioSegment.from_file(mp3_path, format="mp3")
         wav_bytes = audio.export(format="wav").read()
-        st.audio(wav_bytes, format="audio/wav")
+        
+        # Создаем колонки для предпрослушки
+        col_preview_download, col_preview_play = st.columns(2)
+        
+        with col_preview_download:
+            st.download_button("⬇️ Скачать предпрослушку", wav_bytes, file_name="preview.wav", mime="audio/wav")
+        
+        with col_preview_play:
+            st.audio(wav_bytes, format="audio/wav", start_time=0)
+        
         status.success("Предпрослушка готова!")
         os.remove(mp3_path)
     except Exception as e:
@@ -199,8 +208,19 @@ if generate_clicked and text.strip():
         status.success(f"Готово! Итоговый файл: {out_path}")
         st.markdown(f"**Путь к файлу:** `{out_path}`")
         st.markdown(f"**Голос:** `{voice}`  |  **Сегментов:** {n_parts}")
-        with open(out_path, "rb") as f:
-            st.download_button("⬇️ Скачать output.wav", f, file_name="output.wav", mime="audio/wav")
+        
+        # Создаем колонки для кнопок скачивания и прослушивания
+        col_download, col_play = st.columns(2)
+        
+        with col_download:
+            with open(out_path, "rb") as f:
+                st.download_button("⬇️ Скачать output.wav", f, file_name="output.wav", mime="audio/wav")
+        
+        with col_play:
+            # Добавляем аудиоплеер для прослушивания в браузере
+            with open(out_path, "rb") as f:
+                audio_bytes = f.read()
+                st.audio(audio_bytes, format="audio/wav", start_time=0)
     except Exception as e:
         status.error(f"Ошибка генерации: {e}")
     finally:
@@ -212,7 +232,7 @@ st.markdown("---", unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align: center; padding: 20px; background: #1e1e1e; border: 1px solid #333; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-family: 'Segoe UI', sans-serif;">
     <div style="font-size: 24px; color: white; font-weight: bold; margin-bottom: 6px;">
-         ИИ-Голос
+         Нейро-Голос
     </div>
     <div style="font-size: 15px; color: #999; margin-bottom: 12px;">
         Нейроново 2025
