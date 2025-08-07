@@ -1,4 +1,5 @@
-# ИИ-Голос
+# Нейро-Голос
+<img width="1279" height="842" alt="2212" src="https://github.com/user-attachments/assets/91235d41-4ab5-4029-a18f-78c76f061ade" />
 
 Генерация озвучки текста с помощью Microsoft Edge TTS (streamlit web-интерфейс).
 
