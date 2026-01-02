@@ -1,6 +1,6 @@
 # 🎙️ Нейро-Голос
 
-<img width="1279" height="842" alt="2212" src="https://github.com/user-attachments/assets/3e885c19-5c3e-40fd-872f-d26976abec4b" />
+<img width="1279" height="842" alt="2212" src="https://github.com/user-attachments/assets/e33caf6d-ab2f-4c6b-81e4-2f5675290b22" />
 
 Генерация озвучки текста с помощью Microsoft Edge TTS (streamlit web-интерфейс).
 
@@ -108,3 +108,4 @@ The author of this repository is not affiliated with Microsoft.
 ## 📄 Лицензия
 
 Проект предназначен для образовательных и некоммерческих целей.
+
